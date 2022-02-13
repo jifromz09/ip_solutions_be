@@ -20,6 +20,6 @@ use App\Http\Controllers\API\IpController;
 Route::post('register', [RegisterController::class, 'register']);
 Route::post('login', [RegisterController::class, 'login']);
 
-Route::middleware('auth:api')->group( function () {
+Route::group(['middleware' => ['auth:apiToken,api']], function () {
     Route::resource('ips', IpController::class);
 });

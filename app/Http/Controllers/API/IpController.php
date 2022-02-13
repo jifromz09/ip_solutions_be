@@ -8,7 +8,7 @@ use App\Models\Ip;
 use Validator;
 use App\Http\Resources\Ip as IpResource;
    
-class ProductController extends BaseController
+class IpController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -17,9 +17,9 @@ class ProductController extends BaseController
      */
     public function index()
     {
-        $products = Ip::all();
+        $ips = Ip::all();
     
-        return $this->sendResponse(IpResource::collection($products), 'Ip retrieved successfully.');
+        return $this->sendResponse(IpResource::collection($ips), 'Ip retrieved successfully.');
     }
     /**
      * Store a newly created resource in storage.
@@ -27,7 +27,7 @@ class ProductController extends BaseController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function save(Request $request)
     {
         $input = $request->all();
    
@@ -82,7 +82,7 @@ class ProductController extends BaseController
             return $this->sendError('Validation Error.', $validator->errors());       
         }
    
-        $ip->name = $input['ip'];
+        // $ip->name = $input['ip'];
         $ip->comment = $input['comment'];
         $ip->save();
    

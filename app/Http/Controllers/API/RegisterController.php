@@ -31,7 +31,7 @@ class RegisterController extends BaseController
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $user = User::create($input);
-        $token = $user->createToken('MyApp')->accessToken;
+        $token = auth('web')->user()->createToken('MyApp')->accessToken;
         $success['token'] =  $token['token'];
         $success['name'] =  $user->name;
          
@@ -45,9 +45,12 @@ class RegisterController extends BaseController
      */
     public function login(Request $request)
     {
-        if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){ 
+        $this->validateLogin($request);
+
+        if(Auth::guard()->attempt(['email' => $request->email, 'password' => $request->password])){ 
             $user = Auth::user(); 
-            $success['token'] =  $user->createToken('MyApp')-> accessToken; 
+            $token = auth('web')->user()->createToken('MyApp')->accessToken;
+            $success['token'] =  $token['token'];
             $success['name'] =  $user->name;
    
             return $this->sendResponse($success, 'User login successfully.');
@@ -56,5 +59,32 @@ class RegisterController extends BaseController
         { 
             return $this->sendError('Unauthorised.', ['error'=>'Unauthorised']);
         } 
+    }
+
+    /**
+     * Validate the user login request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return void
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    protected function validateLogin(Request $request)
+    {
+        $request->validate([
+            $this->username() => 'required|string',
+            'password' => 'required|string',
+        ]);
+    }
+
+   
+     /**
+     * Get the login username to be used by the controller.
+     *
+     * @return string
+     */
+    public function username()
+    {
+        return 'email';
     }
 }
