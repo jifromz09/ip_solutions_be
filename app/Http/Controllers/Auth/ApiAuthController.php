@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use App\Http\Controllers\BaseController as BaseController;
 use Illuminate\Support\Facades\Auth;
-use App\Services\User\Request\UserRegistrationRequest;
+use App\Services\User\Requests\UserRegistrationRequest;
 use App\Interfaces\UserRepositoryInterface;
  
 
@@ -31,17 +31,11 @@ class ApiAuthController extends BaseController
        
         $input = $request->all();
         $user = $this->userRepository->create($input);
-        $success['token'] = $this->createToken($user);
+        $success['token'] = $user->createToken('Laravel Password Grant Client')->accessToken;
         $success['name'] =  $user->name;
 
         return $this->sendResponse($success, 'User register successfully.');
     }
 
-     /**
-     * Create user token
-     */
-    private function createToken(User $user): string {
-        $token = $user->createToken('Laravel Password Grant Client')->accessToken;
-        return $token['token'];
-    }
+     
 }

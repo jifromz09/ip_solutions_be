@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\User\Request;
+namespace App\Services\User\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -12,7 +12,7 @@ class UserRegistrationRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -22,7 +22,7 @@ class UserRegistrationRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules() : array
     {
         return [
             'name' => 'required|string|max:255',

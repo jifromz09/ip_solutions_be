@@ -6,7 +6,7 @@ use App\Services\User\Models\User;
 use App\Interfaces\UserRepositoryInterface;
 use Illuminate\Support\Str;
 use App\Repositories\BaseRepository;
- 
+use App\Services\User\DataModels\UserData;
  
 class UserRepository extends BaseRepository implements UserRepositoryInterface
 {     
@@ -22,10 +22,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
    public function create(array $attributes): User
    {
-        $attributes['password'] = bcrypt($attributes['password']);
-        $attributes['remember_token'] = Str::random(10);
-        $attributes['type'] = $attributes['type'] ? $attributes['type']  : 0;
-        return $this->model->create($attributes);
+        return $this->model->create((array) UserData::mapUserData($attributes));
    }
 
    public function findById(int $id): User
