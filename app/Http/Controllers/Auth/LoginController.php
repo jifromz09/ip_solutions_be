@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Services\User\DataModels\AuthData;
 use App\Services\User\DataModels\CredentialData;
+use App\Services\User\Requests\LoginRequest;
 
 class LoginController extends BaseController
 {
@@ -21,7 +22,7 @@ class LoginController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function login (Request $request)
+    public function login (LoginRequest $request)
     {
         if($this->guard()->attempt((array)CredentialData::mapCredentialData($request)))
         { 

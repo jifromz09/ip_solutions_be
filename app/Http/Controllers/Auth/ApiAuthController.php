@@ -11,6 +11,7 @@ use App\Http\Controllers\BaseController as BaseController;
 use Illuminate\Support\Facades\Auth;
 use App\Services\User\Requests\UserRegistrationRequest;
 use App\Interfaces\UserRepositoryInterface;
+use App\Services\User\DataModels\AuthData;
  
 
 class ApiAuthController extends BaseController
@@ -27,15 +28,11 @@ class ApiAuthController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function register (UserRegistrationRequest $request) {
-       
+    public function register (UserRegistrationRequest $request) 
+    {   
         $input = $request->all();
         $user = $this->userRepository->create($input);
-        $success['token'] = $user->createToken('Laravel Password Grant Client')->accessToken;
-        $success['name'] =  $user->name;
-
-        return $this->sendResponse($success, 'User register successfully.');
+        $tokenResult = $user->createToken('Laravel Password Grant Client');
+        return $this->sendResponse(AuthData::mapAuthData($user, $tokenResult), 'User register successfully.');
     }
-
-     
 }
