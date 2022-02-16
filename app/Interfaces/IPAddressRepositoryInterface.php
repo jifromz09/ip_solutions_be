@@ -12,7 +12,7 @@ interface IPAddressRepositoryInterface
 
     public function create(array $attributes): IpAddress;
 
-    public function findById(int $id): IpAddress;
+    public function findById(int $id): ?IpAddress;
 
-    public function update(int $id, array $attributes): IpAddress;
+    public function update(int $id, string $label): ?IpAddress;
 }

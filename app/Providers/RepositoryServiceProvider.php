@@ -5,8 +5,10 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Interfaces\EloquentRepositoryInterface;
 use App\Interfaces\UserRepositoryInterface;
+use App\Interfaces\IPAddressRepositoryInterface;
 use App\Repositories\User\UserRepository;
 use App\Repositories\BaseRepository;
+use App\Repositories\IPAddress\IPAddressRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -17,8 +19,9 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(EloquentRepositoryInterface::class, BaseRepository::class);
+       $this->app->bind(EloquentRepositoryInterface::class, BaseRepository::class);
        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
+       $this->app->bind(IPAddressRepositoryInterface::class, IPAddressRepository::class);
     }
 
     /**

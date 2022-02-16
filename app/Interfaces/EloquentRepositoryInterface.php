@@ -4,6 +4,7 @@ namespace App\Interfaces;
 
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 /**
 * Interface EloquentRepositoryInterface
@@ -28,7 +29,7 @@ interface EloquentRepositoryInterface
     * @return Model
     * @param array $attributes
     */
-    public function update(int $id, array $attributes): ?Model;
+    public function update(int $id, string $attribute): ?Model;
 
      /**
     * @param $id
@@ -41,5 +42,5 @@ interface EloquentRepositoryInterface
     * @return Model
     * @param array $attributes
     */
-    public function all(): ?Model;
+    public function all(): ?Collection;
 }

@@ -47,15 +47,15 @@ class BaseRepository implements EloquentRepositoryInterface
     * @param $id
     * @return Model
     */
-    public function update(int $id, array $attributes): ?Model
+    public function update(int $id, string $label): ?Model
     {
-        return $this->model->update($id, $attributes);
+        return $this->model->update($id, $label);
     }
 
     /**
     * fetch all records
     */
-    public function all(): ?Model
+    public function all(): ?Collection
     {
         return $this->model->all();
     }

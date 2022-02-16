@@ -3,6 +3,7 @@
 namespace App\Services\IPAddress\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class IPAddressRequest extends FormRequest
 {
@@ -25,7 +26,7 @@ class IPAddressRequest extends FormRequest
     {
         return [
             'label' => 'required|string|max:255',
-            'ip_address' => 'required|string|max:20|unique:ip_addresses|regex:/^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/',
+            'ip_address' => 'required|string|max:20|unique:ip_addresses|ip',
         ];
     }
 }

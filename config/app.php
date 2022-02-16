@@ -181,7 +181,9 @@ return [
         /*
         * Repository service provider
         */
-        App\Providers\RepositoryServiceProvider::class
+        App\Providers\RepositoryServiceProvider::class,
+
+        OwenIt\Auditing\AuditingServiceProvider::class,
     ],
 
     /*
