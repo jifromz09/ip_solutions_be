@@ -27,7 +27,11 @@ class IPAddressController extends BaseController
     {
         $input = $request->all();
         $ipAdd = $this->ipAddressRepository->create($input);
-        return $this->sendResponse(IpAddressData::mapIpAddressData($input), 'Ip Address created successfully.');
+        if($ipAdd) 
+        {
+            return $this->sendResponse(IpAddressData::mapIpAddressData($input), 'Ip Address created successfully.');
+        }
+        return $this->sendError('Server error.', ['error'=>'Error on saving']);
     }
 
     public function update($id, IPAddressRequest $request) 
@@ -36,8 +40,8 @@ class IPAddressController extends BaseController
         $ipAdd = $this->ipAddressRepository->update($id, $input['label']);
         if($ipAdd) 
         {
-            return $this->sendResponse(IpAddressData::mapIpAddressData($input), 'Ip Address label updated successfully.');
+            return $this->sendResponse($ipAdd, 'Ip Address label updated successfully.');
         }
-        return $this->sendError('Server error.', ['error'=>'Ip address not fopund!']);
+        return $this->sendError('Server error.', ['error'=>'Ip address not found!']);
     }
 }

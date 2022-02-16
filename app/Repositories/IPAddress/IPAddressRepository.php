@@ -23,17 +23,17 @@ class IPAddressRepository extends BaseRepository implements IPAddressRepositoryI
 
    public function create(array $attributes): IPAddress
    { 
-        return $this->model->create((array) IpAddressData::mapIpAddressData($attributes));
+        return $this->model->with('audits')->create((array) IpAddressData::mapIpAddressData($attributes));
    }
 
    public function findById(int $id): ?IPAddress
    {
-        return $this->model->find($id);
+        return $this->model->with('audits')->find($id);
    }
 
    public function all(): Collection
    {
-        return $this->model->all();
+        return $this->model->with('audits')->all();
    }
 
    public function update(int $id, string $label): ?IPAddress
