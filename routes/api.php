@@ -26,6 +26,7 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
     // public routes
     Route::post('login', [LoginController::class, 'login']);
     Route::post('register', [ApiAuthController::class, 'register']);
+    Route::get('ipaddress/addresses', [IPAddressController::class, 'getAll']);
     // ...
 
     Route::middleware('auth:api')->group(function () {

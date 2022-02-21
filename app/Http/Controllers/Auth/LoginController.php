@@ -39,9 +39,10 @@ class LoginController extends BaseController
 
     public function logout ()
     {
-        if (Auth::check()) 
+        $user = $this->guard()->user();
+        if ($user) 
         {
-            Auth::user()->token()->revoke();
+            $user->token()->revoke();
             return $this->sendResponse([], 'You have been successfully logged out!');
         } 
         else 

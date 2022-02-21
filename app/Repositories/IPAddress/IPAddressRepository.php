@@ -33,7 +33,7 @@ class IPAddressRepository extends BaseRepository implements IPAddressRepositoryI
 
    public function all(): Collection
    {
-        return $this->model->with('audits')->all();
+        return $this->model->with('audits')->get();
    }
 
    public function update(int $id, string $label): ?IPAddress
