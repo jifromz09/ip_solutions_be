@@ -55,7 +55,7 @@ class BaseRepository implements EloquentRepositoryInterface
     /**
     * fetch all records
     */
-    public function all(): ?Collection
+    public function all()
     {
         return $this->model->all();
     }

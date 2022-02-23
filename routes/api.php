@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\ApiAuthController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\IPAddressController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,11 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         Route::group(['prefix' => 'ipaddress'], function () {
             Route::post('create', [IPAddressController::class, 'create']);
             Route::put('update/{id}', [IPAddressController::class, 'update']);
+        });
+
+        Route::group(['prefix' => 'user'], function () {
+            Route::get('activities', [UserController::class, 'userActvityLogs']);
+            Route::get('audit-trails', [UserController::class, 'userAuditTrails']);
         });
     });
 });

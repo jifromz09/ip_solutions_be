@@ -8,7 +8,7 @@ use Illuminate\Support\Collection;
 
 interface IPAddressRepositoryInterface 
 {
-    public function all(): Collection;
+    public function all();
 
     public function create(array $attributes): IpAddress;
 

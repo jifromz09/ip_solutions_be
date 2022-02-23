@@ -2,7 +2,7 @@
 
 namespace App\Repositories\IPAddress;
 
-use App\Services\IPAddress\Models\IPAddress;
+use App\Services\IPAddress\Models\IpAddress;
 use App\Interfaces\IPAddressRepositoryInterface;
 use Illuminate\Support\Str;
 use App\Repositories\BaseRepository;
@@ -14,32 +14,35 @@ class IPAddressRepository extends BaseRepository implements IPAddressRepositoryI
     /**
     * IPAddressRepository constructor.
     *
-    * @param IPAddress $model
+    * @param IpAddress $model
     */
-   public function __construct(IPAddress $model)
+   public function __construct(IpAddress $model)
    {
        parent::__construct($model);
    }
 
-   public function create(array $attributes): IPAddress
+   public function create(array $attributes): IpAddress
    { 
         return $this->model->with('audits')->create((array) IpAddressData::mapIpAddressData($attributes));
    }
 
-   public function findById(int $id): ?IPAddress
+   public function findById(int $id): ?IpAddress
    {
         return $this->model->with('audits')->find($id);
    }
 
-   public function all(): Collection
+   public function all()
    {
-        return $this->model->with('audits')->get();
+        $data =  $this->model->with(['audits','user'])
+        ->orderBy('created_at', 'desc')
+        ->paginate(15);
+        
+        return $data;
    }
 
-   public function update(int $id, string $label): ?IPAddress
+   public function update(int $id, string $label): ?IpAddress
    {
         $ipAddress = $this->findById($id);
-
         if($ipAddress)
         {
             $ipAddress->label = $label;

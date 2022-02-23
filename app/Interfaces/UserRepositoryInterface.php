@@ -14,5 +14,5 @@ interface UserRepositoryInterface
 
     public function findById(int $id): User;
 
-     
+    public function activityLogs(int $id);
 }

@@ -42,5 +42,5 @@ interface EloquentRepositoryInterface
     * @return Model
     * @param array $attributes
     */
-    public function all(): ?Collection;
+    public function all();
 }
