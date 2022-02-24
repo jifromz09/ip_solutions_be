@@ -7,11 +7,11 @@ $ composer install
 ```
 
 ```sh
-php artisan passport:install
+$ php artisan migrate
 ```
 
 ```sh
-$ php artisan migrate
+$ php artisan passport:install
 ```
 
 ```sh
