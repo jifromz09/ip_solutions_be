@@ -40,6 +40,7 @@ Route::group(['middleware' => ['cors', 'json.response']], function () {
         Route::group(['prefix' => 'ipaddress'], function () {
             Route::post('create', [IPAddressController::class, 'create']);
             Route::put('update/{id}', [IPAddressController::class, 'update']);
+            Route::get('audit-trails/{id}', [IPAddressController::class, 'ipAuditTrails']);
         });
 
         Route::group(['prefix' => 'user'], function () {

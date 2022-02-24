@@ -37,6 +37,5 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
    {
         return DB::table('logs')->where('user_id', $user_id)
         ->paginate(10);
-          
    }
 }

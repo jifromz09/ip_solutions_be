@@ -59,4 +59,13 @@ class BaseRepository implements EloquentRepositoryInterface
     {
         return $this->model->all();
     }
+
+
+    /**
+    * fetch all IP Audit trail
+    */
+    public function auditLogs(int $id)
+    {
+        return $this->model->auditLogs($id);
+    }
 }

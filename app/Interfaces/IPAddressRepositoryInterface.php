@@ -15,4 +15,6 @@ interface IPAddressRepositoryInterface
     public function findById(int $id): ?IpAddress;
 
     public function update(int $id, string $label): ?IpAddress;
+
+    public function auditLogs(int $id); 
 }

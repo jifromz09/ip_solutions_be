@@ -60,12 +60,9 @@ class User extends Authenticatable implements Auditable
         return $this->hasMany(\OwenIt\Auditing\Auditable::class);
     }
 
-
-
     public function userAuditTrails()
     {
         $id = $this->id;
         return $this->with('audits')->where('id', $id)->paginate(10);
-        
     }
 }

@@ -7,17 +7,22 @@ $ composer install
 ```
 
 ```sh
+php artisan passport:install
+```
+
+```sh
 $ php artisan migrate
 ```
 
 ```sh
-$ php artisan key:generate or php artisan passport:keys
+$ php artisan key:generate  
 ```
-
 
 ```sh
-php artisan migrate:refresh --seed
+$ php artisan serve
 ```
+
+ 
 
  
 

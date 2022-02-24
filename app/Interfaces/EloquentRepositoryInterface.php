@@ -43,4 +43,11 @@ interface EloquentRepositoryInterface
     * @param array $attributes
     */
     public function all();
+
+     /**
+    * @param $id
+    * @return Auditable
+    * @param array $attributes
+    */
+    public function auditLogs(int $id); 
 }

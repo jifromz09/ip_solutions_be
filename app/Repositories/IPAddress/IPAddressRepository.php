@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use App\Repositories\BaseRepository;
 use App\Services\IpAddress\DataModels\IpAddressData;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class IPAddressRepository extends BaseRepository implements IPAddressRepositoryInterface
 {     
@@ -29,6 +30,12 @@ class IPAddressRepository extends BaseRepository implements IPAddressRepositoryI
    public function findById(int $id): ?IpAddress
    {
         return $this->model->with('audits')->find($id);
+   }
+
+   public function auditLogs(int $id) 
+   {
+        return DB::table('audits')->where('auditable_id', $id)
+        ->paginate(10);
    }
 
    public function all()

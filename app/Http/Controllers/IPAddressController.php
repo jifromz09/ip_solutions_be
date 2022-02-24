@@ -9,6 +9,7 @@ use App\Services\IpAddress\DataModels\IpAddressData;
 use App\Services\IpAddress\Requests\IPAddressUpdateRequest;
 use App\Http\Controllers\BaseController as BaseController;
 use Illuminate\Support\Facades\Auth;
+use App\Services\IPAddress\Models\IpAddress;
 
 class IPAddressController extends BaseController
 {
@@ -37,7 +38,7 @@ class IPAddressController extends BaseController
         $ipAdd = $this->ipAddressRepository->create((array)$data);
         if($ipAdd) 
         {
-            return $this->sendResponse($ipAdd, 'Ip Address created successfully.');
+            return $this->sendResponse($ipAdd, 'IP Address created successfully.');
         }
         return $this->sendError('Server error.', ['error'=>'Error on saving']);
     }
@@ -48,7 +49,27 @@ class IPAddressController extends BaseController
         $ipAdd = $this->ipAddressRepository->update($id, $input['label']);
         if($ipAdd) 
         {
-            return $this->sendResponse($ipAdd, 'Ip Address label updated successfully.');
+            return $this->sendResponse($ipAdd, 'IP Address label updated successfully.');
+        }
+        return $this->sendError('Server error.', ['error'=>'Ip address not found!']);
+    }
+
+    public function findById(int $id) 
+    {
+        $ipAdd = $this->ipAddressRepository->findById($id);
+        if($ipAdd) 
+        {
+            return $this->sendResponse($ipAdd, 'IP address exist.');
+        }
+        return $this->sendError('Server error.', ['error'=>'Ip address not found!']);
+    }
+
+    public function ipAuditTrails(int $id)
+    {
+        $logs = $this->ipAddressRepository->auditLogs($id);
+        if($logs) 
+        {
+            return $this->sendResponse($logs, 'IP audit logs.');
         }
         return $this->sendError('Server error.', ['error'=>'Ip address not found!']);
     }
